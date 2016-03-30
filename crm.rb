@@ -44,6 +44,7 @@ class CRM
       when "4" then display_all_contacts
       when "5" then search_by_attribute
       when "6" then abort("Adios muchachos!")
+      else puts "Invalid entry"
     end
   end
 
@@ -77,6 +78,7 @@ class CRM
     puts "Please enter ID of the record to delete:  "
     id = gets.chomp
     Contact.find( id.to_i ).delete
+
     main_menu
   end
 
@@ -84,7 +86,51 @@ class CRM
     # Fill this in
     # HINT: Make use of the display_contacts method
 
-    list = Contact.all
+    display_contacts( Contact.all )
+
+    main_menu
+  end
+
+  def search_by_attribute
+    # Fill this in
+    # HINT: Make use of the display_contacts method
+    puts "[1] First Name"
+    puts "[2] Last Name"
+    puts "[3] email"
+    puts "[4] notes"
+    puts "Enter a number:  "
+    user_selected = gets.chomp
+
+    case user_selected
+      when "1" then
+        puts "Please enter search text"
+        search_text = gets.chomp
+        display_contacts( Contact.find_by( "first_name", search_text.to_s ) )
+      when "2" then
+        puts "Please enter search text"
+        search_text = gets.chomp
+        display_contacts( Contact.find_by( "last_name", search_text.to_s ) )
+      when "3" then
+        puts "Please enter search text"
+        search_text = gets.chomp
+        display_contacts( Contact.find_by( "email", search_text.to_s ) )
+      when "4" then
+        puts "Please enter search text"
+        search_text = gets.chomp
+        display_contacts( Contact.find_by( "note", search_text.to_s ) )
+      else puts "Invalid entry"
+    end
+
+    main_menu
+  end
+
+  # This method should accept as its argument an array of contacts
+  # and display each contact in the contacts array
+  def display_contacts(contacts)
+    # Fill this in
+    # HINT: Make use of this method in the display_all_contacts and search_by_attribute methods
+
+    list = contacts
     list.each do | contact |
 
       puts "ID:          #{ contact.id }"
@@ -96,20 +142,7 @@ class CRM
     end
 
     main_menu
-  end
 
-  def search_by_attribute
-    # Fill this in
-    # HINT: Make use of the display_contacts method
-    main_menu
-  end
-
-  # This method should accept as its argument an array of contacts
-  # and display each contact in the contacts array
-  def display_contacts(contacts)
-    # Fill this in
-    # HINT: Make use of this method in the display_all_contacts and search_by_attribute methods
-    main_menu
   end
 
   # Add other methods here, if you need them.
