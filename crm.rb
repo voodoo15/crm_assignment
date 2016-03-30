@@ -11,14 +11,16 @@ class CRM
 
   def initialize(name)
     # Fill this in
+    @name = name
 
   end
 
   def main_menu
     # Fill this in
-    print_main_menu
-    user_selected = gets.chomp
-    call_option( user_selected )
+      print_main_menu
+      user_selected = gets.chomp
+      call_option( user_selected )
+
   end
 
   def print_main_menu
@@ -33,38 +35,59 @@ class CRM
 
   end
 
-  def call_option(user_selected)
+  def call_option( user_selected )
     # Fill this in
     case user_selected
-      when 1 then add_new_contact
-      when 2 then modify_existing_contact
-      when 3 then delete_contact
-      when 4 then display_all_contacts
-      when 5 then search_by_attribute
-      when 6 then abort("Adios muchachos!")
+      when "1" then add_new_contact
+      when "2" then modify_existing_contact
+      when "3" then delete_contact
+      when "4" then display_all_contacts
+      when "5" then search_by_attribute
+      when "6" then abort("Adios muchachos!")
     end
   end
 
   def add_new_contact
     # Fill this in
+    puts "Please enter first name: "
+    first_name = gets.chomp
+
+    puts "Please enter last name:  "
+    last_name = gets.chomp
+
+    puts "Please enter email address:  "
+    email = gets.chomp
+
+    puts "Please enter any notes:  "
+    notes = gets.chomp
+
+    Contact.create( first_name, last_name, email, notes )
+
+    main_menu
+
   end
 
   def modify_existing_contact
     # Fill this in
+    main_menu
   end
 
   def delete_contact
     # Fill this in
+    main_menu
   end
 
   def display_all_contacts
     # Fill this in
     # HINT: Make use of the display_contacts method
+    Contact.all
+    main_menu
   end
 
   def search_by_attribute
     # Fill this in
     # HINT: Make use of the display_contacts method
+    main_menu
   end
 
   # This method should accept as its argument an array of contacts
@@ -72,6 +95,7 @@ class CRM
   def display_contacts(contacts)
     # Fill this in
     # HINT: Make use of this method in the display_all_contacts and search_by_attribute methods
+    main_menu
   end
 
   # Add other methods here, if you need them.
@@ -79,3 +103,4 @@ class CRM
 end
 
 # Run the program here (See 'Using a class method`)
+CRM.run "Test CRM"
