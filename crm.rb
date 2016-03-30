@@ -74,13 +74,27 @@ class CRM
 
   def delete_contact
     # Fill this in
+    puts "Please enter ID of the record to delete:  "
+    id = gets.chomp
+    Contact.find( id.to_i ).delete
     main_menu
   end
 
   def display_all_contacts
     # Fill this in
     # HINT: Make use of the display_contacts method
-    Contact.all
+
+    list = Contact.all
+    list.each do | contact |
+
+      puts "ID:          #{ contact.id }"
+      puts "First Name:  #{ contact.first_name }"
+      puts "Last Name:   #{ contact.last_name }"
+      puts "E-Mail:      #{ contact.email }"
+      puts "Notes:       #{ contact.note }"
+
+    end
+
     main_menu
   end
 
