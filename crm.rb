@@ -3,13 +3,13 @@ require_relative "contact"
 
 class CRM
 
-  def self.run(name)
+  def self.run( name )
     # Fill this in
-    crm = CRM.new(name)
+    crm = CRM.new( name )
     crm.main_menu
   end
 
-  def initialize(name)
+  def initialize( name )
     # Fill this in
     @name = name
 
@@ -25,6 +25,8 @@ class CRM
 
   def print_main_menu
     # Fill this in
+    puts "Welcome to my #{ @name }"
+    puts ""
     puts "[1] Add a new contact"
     puts "[2] Modify an existing contact"
     puts "[3] Delete a contact"
@@ -43,7 +45,7 @@ class CRM
       when "3" then delete_contact
       when "4" then display_all_contacts
       when "5" then search_by_attribute
-      when "6" then abort("Adios muchachos!")
+      when "6" then abort( "Adios muchachos!" )
       else puts "Invalid entry"
     end
   end
@@ -69,7 +71,49 @@ class CRM
   end
 
   def modify_existing_contact
-    # Fill this in
+
+    puts "Please enter Record ID:  "
+    id = gets.chomp
+
+    if Contact.find( id.to_i )
+
+      # Fill this in
+      puts "[1] First Name"
+      puts "[2] Last Name"
+      puts "[3] email"
+      puts "[4] notes"
+      puts "Enter a number:  "
+      user_selected = gets.chomp
+
+      case user_selected
+        when "1" then
+          puts "Please enter search text"
+          search_text = gets.chomp
+          Contact.find( id.to_i ).first_name = search_text
+
+        when "2" then
+          puts "Please enter search text"
+          search_text = gets.chomp
+          Contact.find( id.to_i ).last_name = search_text
+
+        when "3" then
+          puts "Please enter search text"
+          search_text = gets.chomp
+          Contact.find( id.to_i ).email = search_text
+
+        when "4" then
+          puts "Please enter search text"
+          search_text = gets.chomp
+          Contact.find( id.to_i ).note = search_text
+
+        else puts "Invalid entry"
+
+      end
+
+
+    else "No record found"
+  end
+
     main_menu
   end
 
@@ -77,7 +121,10 @@ class CRM
     # Fill this in
     puts "Please enter ID of the record to delete:  "
     id = gets.chomp
-    Contact.find( id.to_i ).delete
+
+    if Contact.find( id.to_i )
+      Contact.find( id.to_i ).delete
+    end
 
     main_menu
   end
@@ -106,18 +153,22 @@ class CRM
         puts "Please enter search text"
         search_text = gets.chomp
         display_contacts( Contact.find_by( "first_name", search_text.to_s ) )
+
       when "2" then
         puts "Please enter search text"
         search_text = gets.chomp
         display_contacts( Contact.find_by( "last_name", search_text.to_s ) )
+
       when "3" then
         puts "Please enter search text"
         search_text = gets.chomp
         display_contacts( Contact.find_by( "email", search_text.to_s ) )
+
       when "4" then
         puts "Please enter search text"
         search_text = gets.chomp
         display_contacts( Contact.find_by( "note", search_text.to_s ) )
+
       else puts "Invalid entry"
     end
 
@@ -150,4 +201,4 @@ class CRM
 end
 
 # Run the program here (See 'Using a class method`)
-CRM.run "Test CRM"
+CRM.run "Lousy CRM"
